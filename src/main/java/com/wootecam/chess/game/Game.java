@@ -11,9 +11,13 @@ import com.wootecam.chess.pieces.Color;
 import com.wootecam.chess.pieces.Piece;
 import com.wootecam.chess.pieces.Position;
 import com.wootecam.chess.pieces.Type;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
 
 public class Game {
+
+    private static final Color[] ORDER = {Color.WHITE, Color.BLACK};
+    private static final AtomicInteger COUNTER = new AtomicInteger(0);
 
     private final Board board;
     private final CoordinatesExtractor extractor;
@@ -25,7 +29,9 @@ public class Game {
         this.pieceMoveVerifier = pieceMoveVerifier;
     }
 
-    public void move(final String startCoordinates, final String targetCoordinates, final Color currentOrderColor) {
+    public void move(final String startCoordinates, final String targetCoordinates) {
+        Color currentOrderColor = ORDER[COUNTER.getAndIncrement() % ORDER.length];
+
         Position startPosition = extractor.extractPosition(startCoordinates);
         Position targetPosition = extractor.extractPosition(targetCoordinates);
 

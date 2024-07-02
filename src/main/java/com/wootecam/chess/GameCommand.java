@@ -1,9 +1,8 @@
 package com.wootecam.chess;
 
-import com.wootecam.chess.pieces.Color;
-import com.wootecam.chess.utils.TriConsumer;
 import java.util.Objects;
 import java.util.StringTokenizer;
+import java.util.function.BiConsumer;
 
 public enum GameCommand {
     START("start"),
@@ -28,8 +27,7 @@ public enum GameCommand {
     }
 
     public static void move(final String moveInput,
-                            final String currentOrder,
-                            final TriConsumer<String, String, Color> gamePlayConsumer) {
+                            final BiConsumer<String, String> gamePlayConsumer) {
         if (Objects.isNull(moveInput) || !moveInput.startsWith(MOVE.command)) {
             throw new IllegalArgumentException("'move {좌표1} {좌표2}'와 같이 입력해야 합니다.");
         }
@@ -37,6 +35,6 @@ public enum GameCommand {
         String startCoordinates = moveToken.nextToken();
         String targetCoordinates = moveToken.nextToken();
 
-        gamePlayConsumer.accept(startCoordinates, targetCoordinates, Color.valueOf(currentOrder));
+        gamePlayConsumer.accept(startCoordinates, targetCoordinates);
     }
 }

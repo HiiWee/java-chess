@@ -30,4 +30,8 @@ public class ChessView {
     public void printCommandInput() {
         System.out.println("명령을 입력하세요.");
     }
+
+    public void printRetry() {
+        System.out.println("다시 입력하세요.");
+    }
 }
